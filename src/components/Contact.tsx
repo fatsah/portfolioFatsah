@@ -1,6 +1,25 @@
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Mail, Phone, MapPin, Linkedin, Github, CheckCircle } from "lucide-react";
 
 export default function Contact() {
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const subject = (form.elements.namedItem("subject") as HTMLInputElement).value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
+
+    const mailtoLink = `mailto:tacherfiout.fatsah@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`De: ${name} (${email})\n\n${message}`)}`;
+    window.open(mailtoLink, "_blank");
+    setSent(true);
+    setTimeout(() => setSent(false), 5000);
+  };
+
   return (
     <section id="contact" className="py-20 bg-[var(--card)]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +76,7 @@ export default function Contact() {
 
             <div className="flex gap-4 pt-4">
               <a
-                href="https://linkedin.com/in/"
+                href="https://www.linkedin.com/in/fatsah-tacherfiout-9aa9278b"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center hover:bg-primary-500/20 transition-colors"
@@ -65,7 +84,7 @@ export default function Contact() {
                 <Linkedin className="text-primary-500" size={20} />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/fatsah"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center hover:bg-primary-500/20 transition-colors"
@@ -75,7 +94,13 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {sent && (
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/30 text-green-500 text-sm">
+                <CheckCircle size={18} />
+                <span>Votre client email s&apos;est ouvert avec le message pré-rempli !</span>
+              </div>
+            )}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
