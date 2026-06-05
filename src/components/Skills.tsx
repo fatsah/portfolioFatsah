@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Cloud,
   Database,
@@ -8,70 +10,73 @@ import {
   FileText,
   Users,
 } from "lucide-react";
-
-const skillCategories = [
-  {
-    title: "Google Cloud (GCP)",
-    icon: Cloud,
-    skills: ["BigQuery", "Composer", "Cloud Storage", "Firestore", "Dataflow", "Container Registry"],
-  },
-  {
-    title: "Amazon Web Services",
-    icon: Server,
-    skills: ["Athena", "Glue", "S3", "Data Catalog"],
-  },
-  {
-    title: "Data Engineering",
-    icon: Database,
-    skills: ["Talend", "Airflow", "PySpark", "PostgreSQL", "MySQL", "SQL Server"],
-  },
-  {
-    title: "Développement",
-    icon: Code,
-    skills: ["Python", "Java", "KSH", "SQL"],
-  },
-  {
-    title: "DevOps & CI/CD",
-    icon: GitBranch,
-    skills: ["GitLab CI/CD", "Docker", "Git"],
-  },
-  {
-    title: "Pipelines & Orchestration",
-    icon: Workflow,
-    skills: [
-      "Conception de pipelines",
-      "Orchestration de workflows",
-      "Automatisation ETL",
-    ],
-  },
-  {
-    title: "Data & Modélisation",
-    icon: FileText,
-    skills: [
-      "Modélisation de données",
-      "Migration de données",
-      "Optimisation des performances",
-    ],
-  },
-  {
-    title: "Méthodologie",
-    icon: Users,
-    skills: [
-      "Agile / Scrum",
-      "Documentation technique",
-      "Résolution de problèmes",
-    ],
-  },
-];
+import { useLanguage } from "./LanguageProvider";
 
 export default function Skills() {
+  const { t } = useLanguage();
+
+  const skillCategories = [
+    {
+      title: t.skills.categories.gcp,
+      icon: Cloud,
+      skills: ["BigQuery", "Composer", "Cloud Storage", "Firestore", "Dataflow", "Container Registry"],
+    },
+    {
+      title: t.skills.categories.aws,
+      icon: Server,
+      skills: ["Athena", "Glue", "S3", "Data Catalog"],
+    },
+    {
+      title: t.skills.categories.dataEng,
+      icon: Database,
+      skills: ["Talend", "Airflow", "PySpark", "PostgreSQL", "MySQL", "SQL Server"],
+    },
+    {
+      title: t.skills.categories.dev,
+      icon: Code,
+      skills: ["Python", "Java", "KSH", "SQL"],
+    },
+    {
+      title: t.skills.categories.devops,
+      icon: GitBranch,
+      skills: ["GitLab CI/CD", "Docker", "Git"],
+    },
+    {
+      title: t.skills.categories.pipelines,
+      icon: Workflow,
+      skills: [
+        t.skills.items.pipelineDesign,
+        t.skills.items.workflowOrch,
+        t.skills.items.etlAuto,
+      ],
+    },
+    {
+      title: t.skills.categories.data,
+      icon: FileText,
+      skills: [
+        t.skills.items.dataModeling,
+        t.skills.items.dataMigration,
+        t.skills.items.perfOptim,
+      ],
+    },
+    {
+      title: t.skills.categories.methodology,
+      icon: Users,
+      skills: [
+        t.skills.items.agile,
+        t.skills.items.techDoc,
+        t.skills.items.problemSolving,
+      ],
+    },
+  ];
+
   return (
     <section id="skills" className="py-20 bg-[var(--card)]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="section-title">Compétences</h2>
+          <h2 className="section-title">{t.skills.title}</h2>
           <p className="section-subtitle">
-            Technologies et expertises acquises au fil de mes missions en Data Engineering
+            {t.skills.subtitle}
           </p>
         </div>
 

@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Github, CheckCircle } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,22 +26,22 @@ export default function Contact() {
     <section id="contact" className="py-20 bg-[var(--card)]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="section-title">Contact</h2>
+          <h2 className="section-title">{t.contact.title}</h2>
           <p className="section-subtitle">
-            Intéressé par une collaboration ? N&apos;hésitez pas à me contacter
+            {t.contact.subtitle}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold mb-6">Mes coordonnées</h3>
+            <h3 className="text-xl font-semibold mb-6">{t.contact.info}</h3>
 
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center">
                 <Mail className="text-primary-500" size={20} />
               </div>
               <div>
-                <p className="text-sm text-[var(--muted)]">Email</p>
+                <p className="text-sm text-[var(--muted)]">{t.contact.email}</p>
                 <a
                   href="mailto:tacherfiout.fatsah@gmail.com"
                   className="font-medium hover:text-primary-500 transition-colors"
@@ -54,7 +56,7 @@ export default function Contact() {
                 <Phone className="text-primary-500" size={20} />
               </div>
               <div>
-                <p className="text-sm text-[var(--muted)]">Téléphone</p>
+                <p className="text-sm text-[var(--muted)]">{t.contact.phone}</p>
                 <a
                   href="tel:+33757633795"
                   className="font-medium hover:text-primary-500 transition-colors"
@@ -69,8 +71,8 @@ export default function Contact() {
                 <MapPin className="text-primary-500" size={20} />
               </div>
               <div>
-                <p className="text-sm text-[var(--muted)]">Localisation</p>
-                <p className="font-medium">Bondy (93), Île-de-France</p>
+                <p className="text-sm text-[var(--muted)]">{t.contact.location}</p>
+                <p className="font-medium">{t.contact.locationValue}</p>
               </div>
             </div>
 
@@ -98,60 +100,60 @@ export default function Contact() {
             {sent && (
               <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/30 text-green-500 text-sm">
                 <CheckCircle size={18} />
-                <span>Votre client email s&apos;est ouvert avec le message pré-rempli !</span>
+                <span>{t.contact.sent}</span>
               </div>
             )}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Nom
+                  {t.contact.nameLabel}
                 </label>
                 <input
                   type="text"
                   id="name"
                   className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                  placeholder="Votre nom"
+                  placeholder={t.contact.namePlaceholder}
                 />
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
+                  {t.contact.emailLabel}
                 </label>
                 <input
                   type="email"
                   id="email"
                   className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                  placeholder="votre@email.com"
+                  placeholder={t.contact.emailPlaceholder}
                 />
               </div>
             </div>
             <div>
               <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                Sujet
+                {t.contact.subjectLabel}
               </label>
               <input
                 type="text"
                 id="subject"
                 className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                placeholder="Sujet du message"
+                placeholder={t.contact.subjectPlaceholder}
               />
             </div>
             <div>
               <label htmlFor="message" className="block text-sm font-medium mb-2">
-                Message
+                {t.contact.messageLabel}
               </label>
               <textarea
                 id="message"
                 rows={5}
                 className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-none"
-                placeholder="Votre message..."
+                placeholder={t.contact.messagePlaceholder}
               />
             </div>
             <button
               type="submit"
               className="w-full px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
             >
-              Envoyer le message
+              {t.contact.send}
             </button>
           </form>
         </div>

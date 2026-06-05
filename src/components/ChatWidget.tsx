@@ -1,57 +1,54 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { X, Send, Bot } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-const defaultResponses: Record<string, string> = {
-  bonjour: "Bonjour ! Je suis l'assistant virtuel de Fatsah. Comment puis-je vous aider ? Vous pouvez me poser des questions sur son parcours, ses compétences ou ses expériences.",
-  experience: "Fatsah a plus de 5 ans d'expérience en Data Engineering. Il travaille actuellement chez Orange France sur la migration de données vers GCP (BigQuery, Airflow). Avant ça, il a travaillé chez LISI Aerospace (AWS) et Renault-Nissan-Mitsubishi.",
-  competences: "Ses compétences principales : GCP (BigQuery, Composer, Dataflow), AWS (Athena, Glue, S3), Python, Airflow, Docker, PySpark, SQL, Talend, GitLab CI/CD. Il maîtrise aussi la modélisation de données et les méthodologies Agile.",
-  formation: "Fatsah a une formation de Concepteur Big Data/Cloud (Fitec, 2021), un Master 2 en Mécatronique de l'UTC Compiègne (2016) et un Master 2 en Électrotechnique de l'Université de Béjaïa (2014).",
-  contact: "Vous pouvez contacter Fatsah par email : tacherfiout.fatsah@gmail.com ou par téléphone : 07 57 63 37 95. Il est basé en Île-de-France (Bondy, 93).",
-  disponible: "Fatsah est actuellement en poste chez Orange France en tant que Consultant Data Engineer. N'hésitez pas à le contacter pour discuter d'opportunités.",
-};
-
-function getResponse(input: string): string {
+function getResponse(input: string, t: ReturnType<typeof useLanguage>["t"]): string {
   const lower = input.toLowerCase();
 
-  if (lower.includes("bonjour") || lower.includes("salut") || lower.includes("hello")) {
-    return defaultResponses.bonjour;
+  if (lower.includes("bonjour") || lower.includes("salut") || lower.includes("hello") || lower.includes("hi")) {
+    return t.chat.responses.hello;
   }
-  if (lower.includes("expérience") || lower.includes("experience") || lower.includes("parcours") || lower.includes("travail")) {
-    return defaultResponses.experience;
+  if (lower.includes("expérience") || lower.includes("experience") || lower.includes("parcours") || lower.includes("travail") || lower.includes("work") || lower.includes("journey")) {
+    return t.chat.responses.experience;
   }
-  if (lower.includes("compétence") || lower.includes("competence") || lower.includes("skill") || lower.includes("technologie") || lower.includes("outil")) {
-    return defaultResponses.competences;
+  if (lower.includes("compétence") || lower.includes("competence") || lower.includes("skill") || lower.includes("technologie") || lower.includes("outil") || lower.includes("tool")) {
+    return t.chat.responses.skills;
   }
-  if (lower.includes("formation") || lower.includes("diplôme") || lower.includes("diplome") || lower.includes("étude") || lower.includes("etude")) {
-    return defaultResponses.formation;
+  if (lower.includes("formation") || lower.includes("diplôme") || lower.includes("diplome") || lower.includes("étude") || lower.includes("etude") || lower.includes("education") || lower.includes("degree")) {
+    return t.chat.responses.education;
   }
-  if (lower.includes("contact") || lower.includes("email") || lower.includes("téléphone") || lower.includes("telephone") || lower.includes("joindre")) {
-    return defaultResponses.contact;
+  if (lower.includes("contact") || lower.includes("email") || lower.includes("téléphone") || lower.includes("telephone") || lower.includes("joindre") || lower.includes("reach")) {
+    return t.chat.responses.contact;
   }
-  if (lower.includes("disponible") || lower.includes("mission") || lower.includes("freelance") || lower.includes("poste")) {
-    return defaultResponses.disponible;
+  if (lower.includes("disponible") || lower.includes("mission") || lower.includes("freelance") || lower.includes("poste") || lower.includes("available") || lower.includes("position")) {
+    return t.chat.responses.available;
   }
 
-  return "Je peux vous renseigner sur le parcours de Fatsah, ses compétences techniques, sa formation ou ses coordonnées. Que souhaitez-vous savoir ?";
+  return t.chat.fallback;
 }
 
 export default function ChatWidget() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Bonjour ! 👋 Je suis l'assistant de Fatsah. Posez-moi vos questions sur son parcours, compétences ou expériences.",
+      content: t.chat.welcome,
     },
   ]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMessages([{ role: "assistant", content: t.chat.welcome }]);
+  }, [t]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -65,7 +62,7 @@ export default function ChatWidget() {
     setInput("");
 
     setTimeout(() => {
-      const response = getResponse(input);
+      const response = getResponse(input, t);
       setMessages((prev) => [...prev, { role: "assistant", content: response }]);
     }, 500);
   };
@@ -76,9 +73,9 @@ export default function ChatWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
-        aria-label="Ouvrir le chat"
+        aria-label={t.chat.open}
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+        {isOpen ? <X size={24} /> : <Bot size={24} />}
       </button>
 
       {/* Chat window */}
@@ -87,11 +84,11 @@ export default function ChatWidget() {
           {/* Header */}
           <div className="bg-primary-600 text-white px-4 py-3 flex items-center gap-3">
             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-              <MessageCircle size={16} />
+              <Bot size={16} />
             </div>
             <div>
-              <p className="font-semibold text-sm">Assistant IA</p>
-              <p className="text-xs text-white/70">Posez vos questions</p>
+              <p className="font-semibold text-sm">{t.chat.title}</p>
+              <p className="text-xs text-white/70">{t.chat.subtitle}</p>
             </div>
           </div>
 
@@ -124,7 +121,7 @@ export default function ChatWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Votre question..."
+                placeholder={t.chat.placeholder}
                 className="flex-1 px-3 py-2 rounded-lg bg-[var(--card)] border border-[var(--card-border)] text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
               <button

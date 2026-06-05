@@ -3,18 +3,20 @@
 import { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-
-const navLinks = [
-  { href: "#home", label: "Accueil" },
-  { href: "#about", label: "À propos" },
-  { href: "#skills", label: "Compétences" },
-  { href: "#experience", label: "Expérience" },
-  { href: "#contact", label: "Contact" },
-];
+import { useLanguage } from "./LanguageProvider";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { language, t, toggleLanguage } = useLanguage();
+
+  const navLinks = [
+    { href: "#home", label: t.nav.home },
+    { href: "#about", label: t.nav.about },
+    { href: "#skills", label: t.nav.skills },
+    { href: "#experience", label: t.nav.experience },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--card-border)]">
@@ -36,6 +38,13 @@ export default function Navbar() {
               </a>
             ))}
             <button
+              onClick={toggleLanguage}
+              className="px-2 py-1 rounded-lg text-xs font-bold hover:bg-[var(--card)] transition-colors border border-[var(--card-border)]"
+              aria-label="Toggle language"
+            >
+              {language === "fr" ? "EN" : "FR"}
+            </button>
+            <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-[var(--card)] transition-colors"
               aria-label="Toggle theme"
@@ -46,6 +55,13 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="px-2 py-1 rounded-lg text-xs font-bold hover:bg-[var(--card)] transition-colors border border-[var(--card-border)]"
+              aria-label="Toggle language"
+            >
+              {language === "fr" ? "EN" : "FR"}
+            </button>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-[var(--card)] transition-colors"

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
@@ -23,10 +24,12 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ChatWidget />
+          <LanguageProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ChatWidget />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
