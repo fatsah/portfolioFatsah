@@ -1,4 +1,5 @@
 import { Database, Cloud, GitBranch } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -8,6 +9,18 @@ export default function Hero() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
+          <div className="flex justify-center mb-8">
+            <div className="relative w-36 h-36 rounded-full overflow-hidden ring-4 ring-primary-500/30 shadow-xl">
+              <Image
+                src="/profile.jpg"
+                alt="Fatsah TACHERFIOUT"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+
           <div className="flex justify-center gap-4 mb-6">
             <Database className="text-primary-500" size={32} />
             <Cloud className="text-primary-400" size={32} />
