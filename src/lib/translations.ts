@@ -5,6 +5,7 @@ export const translations = {
       home: "Accueil",
       about: "À propos",
       skills: "Compétences",
+      certifications: "Certifications",
       experience: "Expérience",
       contact: "Contact",
     },
@@ -16,11 +17,12 @@ export const translations = {
         "+5 ans d'expérience dans la conception et l'optimisation de pipelines de données en environnement cloud. Expert en migration de systèmes de données complexes.",
       cta: "Me contacter",
       ctaSecondary: "Voir mon parcours",
+      downloadCV: "Télécharger CV",
       stats: {
         years: "Années d'expérience",
         missions: "Missions majeures",
         cloud: "& AWS",
-        skills: "Compétences techniques",
+        certifications: "Certifications",
       },
     },
     // About
@@ -66,6 +68,11 @@ export const translations = {
         techDoc: "Documentation technique",
         problemSolving: "Résolution de problèmes",
       },
+    },
+    // Certifications
+    certifications: {
+      title: "Certifications",
+      subtitle: "Certifications professionnelles validant mes compétences cloud et data",
     },
     // Experience
     experience: {
@@ -164,6 +171,7 @@ export const translations = {
       home: "Home",
       about: "About",
       skills: "Skills",
+      certifications: "Certifications",
       experience: "Experience",
       contact: "Contact",
     },
@@ -175,11 +183,12 @@ export const translations = {
         "5+ years of experience in designing and optimizing data pipelines in cloud environments. Expert in complex data system migrations.",
       cta: "Contact me",
       ctaSecondary: "View my journey",
+      downloadCV: "Download CV",
       stats: {
         years: "Years of experience",
         missions: "Major missions",
         cloud: "& AWS",
-        skills: "Technical skills",
+        certifications: "Certifications",
       },
     },
     // About
@@ -225,6 +234,11 @@ export const translations = {
         techDoc: "Technical documentation",
         problemSolving: "Problem solving",
       },
+    },
+    // Certifications
+    certifications: {
+      title: "Certifications",
+      subtitle: "Professional certifications validating my cloud and data expertise",
     },
     // Experience
     experience: {

@@ -11,9 +11,11 @@ import {
   Users,
 } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Skills() {
   const { t } = useLanguage();
+  const ref = useScrollAnimation();
 
   const skillCategories = [
     {
@@ -71,16 +73,16 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-[var(--card)]/50">
+    <section id="skills" className="py-20 bg-[var(--card)]/50" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-on-scroll">
           <h2 className="section-title">{t.skills.title}</h2>
           <p className="section-subtitle">
             {t.skills.subtitle}
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
           {skillCategories.map((category) => (
             <div key={category.title} className="card">
               <div className="flex items-center gap-3 mb-4">

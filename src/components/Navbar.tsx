@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage } from "./LanguageProvider";
@@ -9,14 +9,33 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { language, t, toggleLanguage } = useLanguage();
+  const [activeSection, setActiveSection] = useState("#home");
 
   const navLinks = [
     { href: "#home", label: t.nav.home },
     { href: "#about", label: t.nav.about },
     { href: "#skills", label: t.nav.skills },
+    { href: "#certifications", label: t.nav.certifications },
     { href: "#experience", label: t.nav.experience },
     { href: "#contact", label: t.nav.contact },
   ];
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--card-border)]">
@@ -27,12 +46,16 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium hover:text-primary-500 transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  activeSection === link.href
+                    ? "text-primary-500"
+                    : "hover:text-primary-500"
+                }`}
               >
                 {link.label}
               </a>
@@ -86,7 +109,11 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block py-2 text-sm font-medium hover:text-primary-500 transition-colors"
+                className={`block py-2 text-sm font-medium transition-colors ${
+                  activeSection === link.href
+                    ? "text-primary-500"
+                    : "hover:text-primary-500"
+                }`}
               >
                 {link.label}
               </a>

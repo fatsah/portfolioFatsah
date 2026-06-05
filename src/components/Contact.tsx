@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Linkedin, Github, CheckCircle } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const { t } = useLanguage();
+  const ref = useScrollAnimation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,9 +25,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-[var(--card)]/50">
+    <section id="contact" className="py-20 bg-[var(--card)]/50" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-on-scroll">
           <h2 className="section-title">{t.contact.title}</h2>
           <p className="section-subtitle">
             {t.contact.subtitle}

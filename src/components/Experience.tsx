@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Calendar, Building2, MapPin, ChevronDown } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const techStacks = [
   ["GCP", "Airflow", "Docker", "GitLab", "Python", "BigQuery", "Agile"],
@@ -13,22 +14,23 @@ const techStacks = [
 export default function Experience() {
   const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const ref = useScrollAnimation();
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" className="py-20" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-on-scroll">
           <h2 className="section-title">{t.experience.title}</h2>
           <p className="section-subtitle">
             {t.experience.subtitle}
           </p>
         </div>
 
-        <div className="grid gap-4 max-w-3xl mx-auto">
+        <div className="grid gap-4 max-w-3xl mx-auto stagger-children">
           {t.experience.jobs.map((exp, index) => (
             <div
               key={index}

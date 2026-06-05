@@ -2,14 +2,16 @@
 
 import { Briefcase, GraduationCap, MapPin } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function About() {
   const { t } = useLanguage();
+  const ref = useScrollAnimation();
 
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-20" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-on-scroll">
           <h2 className="section-title">{t.about.title}</h2>
           <p className="section-subtitle">
             {t.about.subtitle}
@@ -30,7 +32,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto stagger-children">
             <div className="card">
               <div className="flex items-start gap-4">
                 <GraduationCap className="text-primary-500 mt-1" size={24} />
