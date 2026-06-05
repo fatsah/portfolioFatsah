@@ -1,0 +1,136 @@
+import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+
+export default function Contact() {
+  return (
+    <section id="contact" className="py-20 bg-[var(--card)]/50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="section-title">Contact</h2>
+          <p className="section-subtitle">
+            Intéressé par une collaboration ? N&apos;hésitez pas à me contacter
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold mb-6">Mes coordonnées</h3>
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                <Mail className="text-primary-500" size={20} />
+              </div>
+              <div>
+                <p className="text-sm text-[var(--muted)]">Email</p>
+                <a
+                  href="mailto:tacherfiout.fatsah@gmail.com"
+                  className="font-medium hover:text-primary-500 transition-colors"
+                >
+                  tacherfiout.fatsah@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                <Phone className="text-primary-500" size={20} />
+              </div>
+              <div>
+                <p className="text-sm text-[var(--muted)]">Téléphone</p>
+                <a
+                  href="tel:+33757633795"
+                  className="font-medium hover:text-primary-500 transition-colors"
+                >
+                  07 57 63 37 95
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                <MapPin className="text-primary-500" size={20} />
+              </div>
+              <div>
+                <p className="text-sm text-[var(--muted)]">Localisation</p>
+                <p className="font-medium">Bondy (93), Île-de-France</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <a
+                href="https://linkedin.com/in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center hover:bg-primary-500/20 transition-colors"
+              >
+                <Linkedin className="text-primary-500" size={20} />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-lg bg-primary-500/10 flex items-center justify-center hover:bg-primary-500/20 transition-colors"
+              >
+                <Github className="text-primary-500" size={20} />
+              </a>
+            </div>
+          </div>
+
+          <form className="space-y-4">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  Nom
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
+                  placeholder="Votre nom"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
+                  placeholder="votre@email.com"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                Sujet
+              </label>
+              <input
+                type="text"
+                id="subject"
+                className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
+                placeholder="Sujet du message"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows={5}
+                className="w-full px-4 py-3 rounded-lg bg-[var(--background)] border border-[var(--card-border)] focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-none"
+                placeholder="Votre message..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
+            >
+              Envoyer le message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
