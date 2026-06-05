@@ -317,7 +317,7 @@ export const translations = {
       },
     },
   },
-} as const;
+};
 
 export type Language = "fr" | "en";
-export type Translations = typeof translations.fr;
+export type Translations = (typeof translations)["fr"];
